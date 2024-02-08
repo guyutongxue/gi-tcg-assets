@@ -1,0 +1,13 @@
+{
+  "name": "@gi-tcg/assets",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@genshin-db/tcg": "^5.0.9",
+    "@types/node": "^20.11.16",
+    "@vercel/node": "^3.0.17"
+  },
+  "dependencies": {
+    "sharp": "^0.33.2"
+  }
+}
