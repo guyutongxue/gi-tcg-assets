@@ -16,6 +16,8 @@ webp:--"node/generate_thumbs.ts"-->webpThumb:["dist/assets/thumbs/*.webp"];
 genImageTs:---->imageList:[imageList.json];
 genImageTs:---->imageNames:[imageNames.json];
 imageList:---->frontend:["client/* (Buff Icon Edit Page)"];
+npmdb:---->statusData:[statusData.json];
+statusData:---->frontend:;
 webp:---->frontend:;
 frontend:--"Manual update"-->statusImage:[statusImageNames.json];
 statusImage:---->genImageTs:;
