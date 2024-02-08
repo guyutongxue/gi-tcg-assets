@@ -1,4 +1,4 @@
-import rawData from "@genshin-db/tcg/src/min/data.min.json";
+import rawData from "@genshin-db/tcg/src/min/data.min.json" with { type: "json" };
 
 /**
  *

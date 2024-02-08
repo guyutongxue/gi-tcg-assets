@@ -4,8 +4,8 @@ import { mkdir, readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { existsSync, statSync } from "node:fs";
 import allData from "../common/data";
-import skillImageNames from "../build/skillImageNames.json";
-import statusImageNames from "../build/statusImageNames.json";
+import skillImageNames from "../output/skillImageNames.json";
+import statusImageNames from "../output/statusImageNames.json";
 import { imageDir } from "./config";
 
 const { English: data } = allData;
@@ -56,10 +56,20 @@ for (const name in grouped) {
   allImagePaths[name] = maxFilePath;
 }
 
-/** 需要处理（保存并生成缩略图）的图片名集合 */
-const imagesToProcess = new Set<string>();
 /** 最终的 id 到图片名的映射 */
-const result: Record<number, string> = {};
+const result: Record<number, string> = {
+  "0": "UI_Gcg_Buff_Common_Element_Physics",
+  "1": "UI_Gcg_Buff_Common_Element_Ice",
+  "2": "UI_Gcg_Buff_Common_Element_Water",
+  "3": "UI_Gcg_Buff_Common_Element_Fire",
+  "4": "UI_Gcg_Buff_Common_Element_Electric",
+  "5": "UI_Gcg_Buff_Common_Element_Wind",
+  "6": "UI_Gcg_Buff_Common_Element_Rock",
+  "7": "UI_Gcg_Buff_Common_Element_Grass",
+  "9": "UI_Gcg_Buff_Common_Element_Heal",
+};
+/** 需要处理（保存并生成缩略图）的图片名集合 */
+const imagesToProcess = new Set<string>(Object.values(result));
 
 const replaceNameMap: Record<string, string> = {
   UI_Gcg_CardFace_Summon_AbyssEle: "UI_Gcg_CardFace_Summon_AbyssEle_Layer00",
@@ -114,7 +124,7 @@ for (const statusImageName of Object.keys(allImagePaths).filter(
 
 const resultPath = path.join(import.meta.dirname, "../build/imageNames.json");
 
-for (const name of (imagesToProcess)) {
+for (const name of imagesToProcess) {
   const filepath = allImagePaths[name];
   const image = Sharp(filepath);
   const outputPath = path.join(imageDir, `${name}.webp`);

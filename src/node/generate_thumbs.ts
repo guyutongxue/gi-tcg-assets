@@ -1,7 +1,12 @@
 import path from "node:path";
-import { readdir } from "node:fs/promises";
+import { mkdir, readdir } from "node:fs/promises";
 import Sharp from "sharp";
 import { imageDir, thumbImageDir } from "./config";
+import { existsSync } from "node:fs";
+
+if (!existsSync(thumbImageDir)) {
+  await mkdir(thumbImageDir, { recursive: true });
+}
 
 const filenames = await readdir(imageDir);
 for (const filename of filenames) {
@@ -21,7 +26,6 @@ for (const filename of filenames) {
   } else {
     image.resize(null, 20);
   }
-  const thumb = image.resize(100, 100);
-  await thumb.toFile(path.join(thumbImageDir, filename));
+  await image.toFile(path.join(thumbImageDir, filename));
   console.log(`Generated thumb for ${filename}`);
 }
