@@ -1,9 +1,6 @@
 # gi-tcg-assets
 
-```
-AssetStudioCLI --silent "<path_to_genshin_impact_games>\YuanShen_Data\StreamingAssets\AssetBundles\blocks" images --types Sprite --game GI --names "^UI_Gcg_(Buff|Cardface|Debuff)|^Skill_|^MonsterSkill_"
-```
-
+此仓库存放用于生成七圣召唤模拟器静态资产的代码。资产产生路径如下：
 
 ```mermaid
 graph TB;
@@ -28,4 +25,10 @@ webp:-...->api:[Vercel Functions]
 webpThumb:-...->api:
 npmdb:-...->api:
 imageNames:-...->api:
+```
+
+其中 AssetStudioCLI 的命令为：
+
+```
+AssetStudioCLI --silent "<path_to_genshin_impact_games>\YuanShen_Data\StreamingAssets\AssetBundles\blocks" images --types Sprite --game GI --names "^UI_Gcg_(Buff|Cardface|Debuff)|^Skill_|^MonsterSkill_"
 ```
