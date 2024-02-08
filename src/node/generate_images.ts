@@ -6,7 +6,7 @@ import { existsSync, statSync } from "node:fs";
 import allData from "../common/data";
 import skillImageNames from "../output/skillImageNames.json";
 import statusImageNames from "../output/statusImageNames.json";
-import { imageDir } from "./config";
+import { imageDir, outputDir } from "./config";
 
 const { English: data } = allData;
 
@@ -122,8 +122,10 @@ for (const statusImageName of Object.keys(allImagePaths).filter(
   imagesToProcess.add(statusImageName);
 }
 
-const resultPath = path.join(import.meta.dirname, "../build/imageNames.json");
+const generatedImageListPath = path.join(outputDir, "./imageList.json");
+await writeFile(generatedImageListPath, JSON.stringify([...imagesToProcess], void 0, 2));
 
+const resultPath = path.join(outputDir, "./imageNames.json");
 for (const name of imagesToProcess) {
   const filepath = allImagePaths[name];
   const image = Sharp(filepath);

@@ -2,7 +2,5 @@
 
 node_modules
 
-dist/**
-!dist/assets
-dist/assets/*
-!dist/assets/*.webp
+dist
+public/assets/thumbs

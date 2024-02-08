@@ -3,7 +3,7 @@ import path from "node:path";
 import { writeFile } from "node:fs/promises";
 
 import data from "../common/data";
-const characters = data.English.filter((c) => c.type === "tcgcharactercards");
+const characters = data.English.filter((c) => c.TYPE === "tcgcharactercards");
 
 const skillImageMap = new Map<number, string>([
   [24012, "MonsterSkill_S_EffigyElectric_01"],
@@ -43,6 +43,6 @@ for (const ch of characters) {
 console.log(skillImageMap);
 
 await writeFile(
-  path.join(import.meta.dirname, "../build/skillImageNames.json"),
+  path.join(import.meta.dirname, "../output/skillImageNames.json"),
   JSON.stringify(Object.fromEntries(skillImageMap), void 0, 2),
 );

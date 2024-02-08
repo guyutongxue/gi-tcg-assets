@@ -19,7 +19,7 @@ import rawData from "@genshin-db/tcg/src/min/data.min.json" with { type: "json" 
  * }} RawData
  *
  * @typedef {AnyData & {
- *  type: TypeKey;
+ *  TYPE: TypeKey;
  *  image: any;
  * }} TransformedData
  */
@@ -41,7 +41,7 @@ const transformedData = Object.fromEntries(
     keys.flatMap((key) =>
       Object.entries(langData[key]).map(([name, obj]) => ({
         ...obj,
-        type: key,
+        TYPE: key,
         image: image?.[key]?.[name] ?? null
       })),
     ),

@@ -3,8 +3,17 @@
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+
+    "isolatedModules": true,
+    "noEmit": true,
 
     "strict": true,
-    "resolveJsonModule": true
-  }
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src/client/**/*.ts", "src/client/**/*.d.ts", "src/common/**/*.js", "src/**/*.vue"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
