@@ -14,7 +14,7 @@ import data from "../../src/common/data.js";
  * @returns
  */
 export default function handler(req, res) {
-  const { id, lang = "ChineseSimplified" } = req.query;
+  const { id, lang = "ChineseSimplified", type } = req.query;
   if (Array.isArray(id) || Array.isArray(lang)) {
     res.status(400).send("Bad request (multiple id or lang)");
     return;
@@ -30,7 +30,9 @@ export default function handler(req, res) {
       );
     return;
   }
-  const found = selectedLang.find((obj) => obj.id === Number(id));
+  const found = selectedLang.find(
+    (obj) => obj.id === Number(id) && (type ? obj.TYPE === type : true),
+  );
   if (found) {
     res.status(200).json(found);
     return;

@@ -32,6 +32,7 @@ const keys = [
   "tcgactioncards",
   "tcgsummons",
   "tcgstatuseffects",
+  "tcgkeywords",
 ];
 
 /** @type {Record<Language, TransformedData[]>} */
