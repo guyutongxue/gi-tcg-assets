@@ -1,3 +1,5 @@
+// @ts-check
+/// <reference types="@genshin-db/tcg" />
 import rawData from "@genshin-db/tcg/src/min/data.min.json" with { type: "json" };
 
 /**
@@ -9,13 +11,13 @@ import rawData from "@genshin-db/tcg/src/min/data.min.json" with { type: "json" 
  *  [key: string]: unknown;
  * }} AnyData
  *
- * @typedef {"tcgcharactercards" | "tcgactioncards" | "tcgsummons" | "tcgstatuseffects"} TypeKey
+ * @typedef {"tcgcharactercards" | "tcgactioncards" | "tcgsummons" | "tcgstatuseffects" | "tcgkeywords" | "tcgskills"} TypeKey
  *
  * @typedef {{
  *   data: {
- *     [lang in Language]: Record<TypeKey, Record<string, AnyData>;
+ *     [lang in Language]: Record<TypeKey, Record<string, AnyData>>
  *   },
- *   image: Record<Omit<TypeKey, "tcgstatuseffects">, object>;
+ *   image: Record<TypeKey, Record<string, unknown> | undefined>;
  * }} RawData
  *
  * @typedef {AnyData & {
@@ -36,17 +38,32 @@ const keys = [
 ];
 
 /** @type {Record<Language, TransformedData[]>} */
+// @ts-expect-error
 const transformedData = Object.fromEntries(
-  Object.entries(data).map(([lang, langData]) => [
+  Object.entries(data).map(([lang, langData]) => ([
     lang,
     keys.flatMap((key) =>
-      Object.entries(langData[key]).map(([name, obj]) => ({
-        ...obj,
-        TYPE: key,
-        image: image?.[key]?.[name] ?? null
-      })),
+      Object.entries(langData[key]).flatMap(([name, obj]) => {
+        const thisObj = {
+          ...obj,
+          TYPE: key,
+          image: image?.[key]?.[name] ?? null
+        };
+        if (key === "tcgcharactercards" && "skills" in obj && Array.isArray(obj.skills)) {
+          return [
+            thisObj,
+            ...obj.skills.map((skill) => ({
+              ...skill,
+              TYPE: "tcgskills",
+              image: image?.tcgskills?.[skill.name] ?? null
+            })),
+          ];
+        } else {
+          return [thisObj];
+        }
+      }),
     ),
-  ]),
+  ])),
 );
 
 export default transformedData;
