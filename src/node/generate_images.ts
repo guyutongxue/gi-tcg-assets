@@ -105,7 +105,7 @@ for (const [id, name] of Object.entries(skillImageNames)) {
 }
 // 已确定的状态图标
 for (const [id, name] of Object.entries(statusImageNames)) {
-  if (name === null) {
+  if (name === null || id in result) {
     continue;
   }
   const filepath = allImagePaths[name];
