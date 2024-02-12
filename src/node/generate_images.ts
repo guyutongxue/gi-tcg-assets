@@ -105,8 +105,12 @@ for (const [id, name] of Object.entries(skillImageNames)) {
 }
 // 已确定的状态图标
 for (const [id, name] of Object.entries(statusImageNames)) {
-  if (name === null || id in result) {
+  if (id in result) {
     continue;
+  }
+  if (name === null) {
+    // 还不知道它的图标是什么，先凑个数
+    result[Number(id)] = "UI_Gcg_Buff_Common_Special";
   }
   const filepath = allImagePaths[name];
   if (filepath) {
