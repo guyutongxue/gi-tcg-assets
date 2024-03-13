@@ -116,7 +116,7 @@ for (const [id, name] of Object.entries(statusImageNames)) {
   if (filepath) {
     result[Number(id)] = name;
   } else {
-    console.warn(`Missing image of skill: ${name}`);
+    console.warn(`Missing image of status: ${id}, ${name}`);
   }
 }
 // 将所有状态图标加入处理集合

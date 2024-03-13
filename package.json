@@ -11,7 +11,7 @@
     "build": "bun build:thumbs && bun build:data && bun build:vite"
   },
   "devDependencies": {
-    "@genshin-db/tcg": "^5.0.9",
+    "@genshin-db/tcg": "^5.1.2",
     "@mdi/font": "^7.4.47",
     "@types/bun": "^1.0.5",
     "@types/node": "^20.11.16",
