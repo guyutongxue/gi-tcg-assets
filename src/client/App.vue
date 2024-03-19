@@ -35,6 +35,7 @@ function exportData() {
   a.download = "statusImageNames.json";
   a.click();
   URL.revokeObjectURL(url);
+  window.removeEventListener("beforeunload", preventClose);
 }
 
 const filterNull = ref(false);
