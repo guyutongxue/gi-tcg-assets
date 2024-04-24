@@ -11,10 +11,11 @@
     "build": "bun build:thumbs && bun build:data && bun build:vite"
   },
   "devDependencies": {
-    "@genshin-db/tcg": "^5.1.2",
+    "@genshin-db/tcg": "^5.1.4",
     "@mdi/font": "^7.4.47",
     "@types/bun": "^1.0.5",
     "@types/node": "^20.11.16",
+    "vercel": "^34.1.1",
     "@vercel/node": "^3.0.17",
     "@vitejs/plugin-vue": "^5.0.3",
     "bun": "^1.0.26",
