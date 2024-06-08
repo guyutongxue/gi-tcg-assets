@@ -28,7 +28,7 @@ const allImagePaths: Record<string, string> = {};
 
 const filenames = await readdir(input);
 const grouped: Record<string, string[]> = {};
-const regex = /^(.+?)(?:#\d+)?\.png$/;
+const regex = /^(.+?)(?: \(\d+\))?\.png$/;
 for (const filename of filenames) {
   const match = filename.match(regex);
   if (match) {

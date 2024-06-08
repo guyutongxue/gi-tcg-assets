@@ -29,8 +29,10 @@ npmdb:-...->api:;
 imageNames:-...->api:;
 ```
 
-其中 AssetStudioCLI 的命令为：
+其中 [AssetStudio](https://github.com/yarik0chka/YarikStudio) 的命令为：
+
+> 编译前设置 `AssetStudio.CLI/App.config` 的 `allowDuplicates` 为 `True`
 
 ```
-AssetStudioCLI --silent "<path_to_genshin_impact_games>\YuanShen_Data\StreamingAssets\AssetBundles\blocks" images --types Sprite --game GI --names "^UI_Gcg_(Buff|Cardface|Debuff)|^Skill_|^MonsterSkill_"
+.\AssetStudio.CLI.exe --silent "D:\Genshin Impact Game\YuanShen_Data\StreamingAssets\AssetBundles\blocks" "D:\gi-assets"  --types Sprite --game GI --names "^UI_Gcg_(Buff|Cardface|Debuff)|^Skill_|^MonsterSkill_"
 ```
