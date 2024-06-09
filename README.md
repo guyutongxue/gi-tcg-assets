@@ -4,29 +4,25 @@
 
 ```mermaid
 flowchart TB;
-genshin:[Genshin client] --AssetStudioCLI--> sprite:[Sprite folder];
-genshinData:[GenshinData Repo] --"theBowja/GenshinData_scripts"-->npmdb:["@genshin-db/tcg"];
-npmdb:---->skillName:;
-npmdb:---->genImageTs:[/"node/generate_images.ts"/];
-ambr:[ambr.top] --"node/get_skill_image_names.ts"-->skillName:[skillImageNames.json];
-skillName:---->genImageTs:;
-sprite:---->genImageTs:;
+genshin:[Genshin client] -- YarikStudio --> texture2D:[Texture2D folder];
+ambr:[ambr.top]---->staticData:["@gi-tcg/static-data"];
+genshinData:[GenshinData Repo]---->staticData:;
+staticData:---->genImageTs:[/"node/generate_images.ts"/];
+staticData:---->ambr:;
+texture2D:---->genImageTs:;
 genImageTs:---->webp:["dist/assets/*.webp"];
 webp:--"node/generate_thumbs.ts"-->webpThumb:["dist/assets/thumbs/*.webp"];
-genImageTs:---->imageList:[imageList.json];
+webp:---->frontend:;
+genImageTs:---->imageList:[buffIconList.json];
 genImageTs:---->imageNames:[imageNames.json];
 imageList:---->frontend:["client/* (Buff Icon Edit Page)"];
-npmdb:---->statusData:[statusData.json];
-statusData:---->frontend:;
-webp:---->frontend:;
-frontend:--"Manual update"-->statusImage:[statusImageNames.json];
-statusImage:---->genImageTs:;
-statusImage:---->frontend:;
+frontend:--"Manual update"-->buffIconMapping:[buffIconMapping.json];
+buffIconMapping:---->staticData:;
 
 webp:-...->api:[Vercel Functions];
 webpThumb:-...->api:;
-npmdb:-...->api:;
 imageNames:-...->api:;
+staticData:-...->api:;
 ```
 
 其中 [AssetStudio](https://github.com/yarik0chka/YarikStudio) 的命令为：

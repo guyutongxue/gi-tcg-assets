@@ -6,7 +6,15 @@
     <title>gi-tcg-assets Buff Icon Edit Page</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <aside id="iconList"></aside>
+      <main id="editView"></main>
+      <dialog id="popup">
+        <ul id="freeIconList"></ul>
+        <button id="cancel">Cancel</button>
+      </dialog>
+      <button id="export">Export</button>
+    </div>
     <script type="module" src="/src/client/main.ts"></script>
   </body>
 </html>
