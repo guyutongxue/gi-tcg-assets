@@ -12,14 +12,15 @@
   },
   "devDependencies": {
     "@genshin-db/tcg": "^5.1.6",
+    "@gi-tcg/static-data": "^0.8.0",
     "@mdi/font": "^7.4.47",
     "@types/bun": "^1.0.5",
     "@types/node": "^20.11.16",
-    "vercel": "^34.1.1",
     "@vercel/node": "^3.0.17",
     "@vitejs/plugin-vue": "^5.0.3",
     "bun": "^1.0.26",
     "typescript": "^5.3.3",
+    "vercel": "^34.1.1",
     "vite": "^5.1.0",
     "vue-tsc": "^1.8.27"
   },
