@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@genshin-db/tcg": "^5.1.6",
-    "@gi-tcg/static-data": "^0.8.0",
+    "@gi-tcg/static-data": "^0.8.1",
     "@mdi/font": "^7.4.47",
     "@types/bun": "^1.0.5",
     "@types/node": "^20.11.16",

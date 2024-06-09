@@ -29,14 +29,20 @@ const all = [...characters, ...actionCards, ...skills, ...sortedEntities, ...key
  */
 export default function handler(req, res) {
   const { id, thumb } = req.query;
-  const found = sortedEntities.find((obj) => obj.id === Number(id));
+  const found = all.find((obj) => obj.id === Number(id));
   if (!found) {
     res.status(404).send("Not found");
     return;
   }
-  const image = found.cardFaceFileName ?? found.buffIcon;
-  if (!image) {
-    res.status(404).send("Not found");
+  let image;
+  if ("cardFace" in found && found.cardFace) {
+    image = found.cardFace;
+  } else if ("icon" in found && found.icon) {
+    image = found.icon;
+  } else if ("buffIcon" in found && found.buffIcon) {
+    image = found.buffIcon;
+  } else {
+    res.status(404).send("Image not found");
     return;
   }
   let url;
