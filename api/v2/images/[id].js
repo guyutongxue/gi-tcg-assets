@@ -1,25 +1,13 @@
 // @ts-check
-import { characters, entities, actionCards, keywords } from "@gi-tcg/static-data";
+import rawData from "../../../src/output/imageNames.json" with { type: "json" };
 
 /**
  * @typedef {import("@vercel/node").VercelRequest} VercelRequest
  * @typedef {import("@vercel/node").VercelResponse} VercelResponse
  */
 
-const skills = characters.flatMap((ch) => ch.skills);
-
-/**
- * 
- * @param {import('@gi-tcg/static-data').EntityRawData} x 
- */
-function key(x) {
-  if (x.type === "GCG_CARD_SUMMON") return 0;
-  else return 1;
-}
-
-const sortedEntities = entities.toSorted((a, b) => key(a) - key(b));
-
-const all = [...characters, ...actionCards, ...skills, ...sortedEntities, ...keywords];
+/** @type {Record<string, string>} */
+const imageMap = rawData;
 
 /**
  *
@@ -29,20 +17,15 @@ const all = [...characters, ...actionCards, ...skills, ...sortedEntities, ...key
  */
 export default function handler(req, res) {
   const { id, thumb } = req.query;
-  const found = all.find((obj) => obj.id === Number(id));
-  if (!found) {
-    res.status(404).send("Not found");
+  if (Array.isArray(id)) {
+    res.status(400)
+      .send("Bad request (multiple id)");
     return;
   }
-  let image;
-  if ("cardFace" in found && found.cardFace) {
-    image = found.cardFace;
-  } else if ("icon" in found && found.icon) {
-    image = found.icon;
-  } else if ("buffIcon" in found && found.buffIcon) {
-    image = found.buffIcon;
-  } else {
-    res.status(404).send("Image not found");
+  const image = imageMap[id];
+  if (!image) {
+    res.status(404)
+      .send("Not found");
     return;
   }
   let url;

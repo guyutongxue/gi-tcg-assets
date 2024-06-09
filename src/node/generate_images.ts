@@ -3,7 +3,7 @@ import { parseArgs } from "node:util";
 import { readdir } from "node:fs/promises";
 import path from "node:path";
 import { statSync } from "node:fs";
-import { imageDir } from "./config";
+import { imageDir, outputDir } from "./config";
 import { characters, entities, actionCards, keywords } from "@gi-tcg/static-data";
 
 const {
@@ -67,11 +67,11 @@ const result: Record<number, string> = {
 /** 需要处理（保存并生成缩略图）的图片名集合 */
 const imagesToProcess = new Set<string>(Object.values(result));
 
-// const replaceNameMap: Record<string, string> = {
-//   UI_Gcg_CardFace_Summon_AbyssEle: "UI_Gcg_CardFace_Summon_AbyssEle_Layer00",
-//   UI_Gcg_CardFace_Char_Monster_Effigyice:
-//     "UI_Gcg_CardFace_Char_Monster_EffigyIce",
-// };
+const replaceNameMap: Record<string, string> = {
+  UI_Gcg_CardFace_Summon_AbyssEle: "UI_Gcg_CardFace_Summon_AbyssEle_Layer00",
+  UI_Gcg_CardFace_Char_Monster_Effigyice:
+    "UI_Gcg_CardFace_Char_Monster_EffigyIce",
+};
 
 const skills = characters.flatMap((ch) => ch.skills);
 const allData = [...characters, ...actionCards, ...skills, ...entities, ...keywords];
@@ -85,17 +85,21 @@ for (const obj of allData) {
     filename = obj.icon;
   } else if ("buffIcon" in obj && obj.buffIcon) {
     filename = obj.buffIcon;
+  } else if ("buffIconHash" in obj && obj.buffIconHash) {
+    filename = "UI_Gcg_Buff_Common_Special"
   } else {
     continue;
   }
-  // if (filename in replaceNameMap) {
-  //   filename = replaceNameMap[filename];
-  // }
+  if (filename in replaceNameMap) {
+    filename = replaceNameMap[filename];
+  }
   if (!(filename in allImagePaths)) {
     console.warn(`Missing image: ${filename}`);
     continue;
   }
-  result[obj.id] = filename;
+  if (!result[obj.id]) {
+    result[obj.id] = filename;
+  }
   imagesToProcess.add(filename);
 }
 
@@ -113,3 +117,6 @@ for (const name of imagesToProcess) {
   await image.toFile(outputPath);
   console.log(`Generated image for ${name}`);
 }
+
+const resultPath = path.join(outputDir, "./imageNames.json");
+await Bun.write(resultPath, JSON.stringify(result, void 0, 2));
