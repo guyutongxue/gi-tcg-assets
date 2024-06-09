@@ -103,10 +103,13 @@ for (const obj of allData) {
   imagesToProcess.add(filename);
 }
 
+const buffIconList: string[] = [];
+
 // 将所有状态图标加入处理集合
 for (const statusImageName of Object.keys(allImagePaths).filter(
   (key) => key.startsWith("UI_Gcg_Buff") || key.startsWith("UI_Gcg_Debuff"),
 )) {
+  buffIconList.push(statusImageName);
   imagesToProcess.add(statusImageName);
 }
 
@@ -118,5 +121,5 @@ for (const name of imagesToProcess) {
   console.log(`Generated image for ${name}`);
 }
 
-const resultPath = path.join(outputDir, "./imageNames.json");
-await Bun.write(resultPath, JSON.stringify(result, void 0, 2));
+await Bun.write(`${outputDir}/imageNames.json`, JSON.stringify(result, void 0, 2));
+await Bun.write(`${outputDir}/buffIconList.json`, JSON.stringify(buffIconList, void 0, 2));
