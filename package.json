@@ -6,13 +6,12 @@
     "dev": "bunx --bun vite dev",
     "build:images": "bun src/node/generate_images.ts $TEXTURE2D_FOLDER",
     "build:thumbs": "bun src/node/generate_thumbs.ts",
-    "build:data": "bun src/node/generate_status_data.ts",
     "build:vite": "vite build",
-    "build": "bun build:thumbs && bun build:data && bun build:vite"
+    "build": "bun build:thumbs && bun build:vite"
   },
   "devDependencies": {
     "@genshin-db/tcg": "^5.1.6",
-    "@gi-tcg/static-data": "^0.8.3",
+    "@gi-tcg/static-data": "^0.8.4",
     "@mdi/font": "^7.4.47",
     "@types/bun": "^1.0.5",
     "@types/node": "^20.11.16",
