@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "bunx --bun vite dev",
-    "build:images": "bun src/node/generate_images.ts $SPRITE_FOLDER",
+    "build:images": "bun src/node/generate_images.ts $TEXTURE2D_FOLDER",
     "build:thumbs": "bun src/node/generate_thumbs.ts",
     "build:data": "bun src/node/generate_status_data.ts",
     "build:vite": "vite build",
@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@genshin-db/tcg": "^5.1.6",
-    "@gi-tcg/static-data": "^0.8.1",
+    "@gi-tcg/static-data": "^0.8.2",
     "@mdi/font": "^7.4.47",
     "@types/bun": "^1.0.5",
     "@types/node": "^20.11.16",

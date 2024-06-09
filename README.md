@@ -34,5 +34,5 @@ imageNames:-...->api:;
 > 编译前设置 `AssetStudio.CLI/App.config` 的 `allowDuplicates` 为 `True`
 
 ```
-.\AssetStudio.CLI.exe --silent "D:\Genshin Impact Game\YuanShen_Data\StreamingAssets\AssetBundles\blocks" "D:\gi-assets"  --types Sprite --game GI --names "^UI_Gcg_(Buff|Cardface|Debuff)|^Skill_|^MonsterSkill_"
+.\AssetStudio.CLI.exe --silent "D:\Genshin Impact Game\YuanShen_Data\StreamingAssets\AssetBundles\blocks" "D:\gi-assets"  --types Texture2D --game GI --names "^UI_Gcg_(Buff|Cardface|Debuff)|^Skill_|^MonsterSkill_"
 ```

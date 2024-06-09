@@ -4,7 +4,7 @@ import rawData from "@genshin-db/tcg/src/min/data.min.json" with { type: "json" 
 
 /**
  *
- * @typedef {import("genshin-db").Language} Language
+ * @typedef {import("@genshin-db/tcg").Language} Language
  *
  * @typedef {{
  *  id: number;
