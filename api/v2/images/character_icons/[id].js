@@ -15,19 +15,23 @@ const ICONS_MAP = Object.fromEntries(characters.map((ch) => [ch.id, ch.icon]));
  * @returns 
  */
 export default function handler(req, res) {
-  const { id } = req.query;
+  const { id, thumb } = req.query;
   if (Array.isArray(id)) {
     res.status(400)
       .send("Bad request (multiple id)");
     return;
   }
   const icon = ICONS_MAP[id];
-  const url = `/assets/${icon}.webp`;
-  if (icon) {
-    res.status(307).setHeader("Location", url).send(void 0);
-    return;
-  } else {
-    res.status(404).send("Not found");
+  if (!icon) {
+    res.status(404)
+      .send("Not found");
     return;
   }
+  let url;
+  if (thumb) {
+    url = `/assets/thumbs/${icon}.webp`;
+  } else {
+    url = `/assets/${icon}.webp`;
+  }
+  res.status(307).setHeader("Location", url).send(void 0);
 }
