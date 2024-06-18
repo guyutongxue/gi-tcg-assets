@@ -4,7 +4,12 @@ import { readdir } from "node:fs/promises";
 import path from "node:path";
 import { statSync } from "node:fs";
 import { imageDir, outputDir } from "./config";
-import { characters, entities, actionCards, keywords } from "@gi-tcg/static-data";
+import {
+  characters,
+  entities,
+  actionCards,
+  keywords,
+} from "@gi-tcg/static-data";
 
 const {
   positionals: [input],
@@ -74,19 +79,25 @@ const replaceNameMap: Record<string, string> = {
 };
 
 const skills = characters.flatMap((ch) => ch.skills);
-const allData = [...characters, ...actionCards, ...skills, ...entities, ...keywords];
+const allData = [
+  ...characters,
+  ...actionCards,
+  ...skills,
+  ...entities,
+  ...keywords,
+];
 
 // 召唤物、角色牌、行动牌
 for (const obj of allData) {
   let filename: string;
   if ("cardFace" in obj && obj.cardFace) {
-    filename = obj.cardFace
+    filename = obj.cardFace;
   } else if ("icon" in obj && obj.icon) {
     filename = obj.icon;
   } else if ("buffIcon" in obj && obj.buffIcon) {
     filename = obj.buffIcon;
   } else if ("buffIconHash" in obj && obj.buffIconHash) {
-    filename = "UI_Gcg_Buff_Common_Special"
+    filename = "UI_Gcg_Buff_Common_Special";
   } else {
     continue;
   }
@@ -105,9 +116,12 @@ for (const obj of allData) {
 
 const buffIconList: string[] = [];
 
-// 将所有状态图标加入处理集合
+// 将所有状态图标、角色图标加入处理集合
 for (const statusImageName of Object.keys(allImagePaths).filter(
-  (key) => key.startsWith("UI_Gcg_Buff") || key.startsWith("UI_Gcg_Debuff"),
+  (key) =>
+    key.startsWith("UI_Gcg_Buff") ||
+    key.startsWith("UI_Gcg_Debuff") ||
+    key.startsWith("UI_Gcg_Char"),
 )) {
   buffIconList.push(statusImageName);
   imagesToProcess.add(statusImageName);
@@ -121,5 +135,11 @@ for (const name of imagesToProcess) {
   console.log(`Generated image for ${name}`);
 }
 
-await Bun.write(`${outputDir}/imageNames.json`, JSON.stringify(result, void 0, 2));
-await Bun.write(`${outputDir}/buffIconList.json`, JSON.stringify(buffIconList, void 0, 2));
+await Bun.write(
+  `${outputDir}/imageNames.json`,
+  JSON.stringify(result, void 0, 2),
+);
+await Bun.write(
+  `${outputDir}/buffIconList.json`,
+  JSON.stringify(buffIconList, void 0, 2),
+);

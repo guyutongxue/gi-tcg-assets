@@ -23,6 +23,8 @@ for (const filename of filenames) {
     }
   } else if (filename.startsWith("UI_Gcg_CardFace")) {
     image.resize(80, null);
+  } else if (filename.startsWith("UI_Gcg_Char")) {
+    image.resize(30, null);
   } else {
     image.resize(null, 20);
   }
