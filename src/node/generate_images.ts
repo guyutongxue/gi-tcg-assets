@@ -117,14 +117,16 @@ for (const obj of allData) {
 const buffIconList: string[] = [];
 
 // 将所有状态图标、角色图标加入处理集合
-for (const statusImageName of Object.keys(allImagePaths).filter(
-  (key) =>
-    key.startsWith("UI_Gcg_Buff") ||
-    key.startsWith("UI_Gcg_Debuff") ||
-    key.startsWith("UI_Gcg_Char"),
-)) {
-  buffIconList.push(statusImageName);
-  imagesToProcess.add(statusImageName);
+for (const statusImageName of Object.keys(allImagePaths)) {
+  if (
+    statusImageName.startsWith("UI_Gcg_Buff") ||
+    statusImageName.startsWith("UI_Gcg_Debuff")
+  ) {
+    buffIconList.push(statusImageName);
+    imagesToProcess.add(statusImageName);
+  } else if (statusImageName.startsWith("UI_Gcg_Char")) {
+    imagesToProcess.add(statusImageName);
+  }
 }
 
 for (const name of imagesToProcess) {
