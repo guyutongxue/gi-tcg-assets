@@ -6,7 +6,7 @@ import { characters, entities, actionCards, keywords } from "@gi-tcg/static-data
  * @typedef {import("@vercel/node").VercelResponse} VercelResponse
  */
 
-const skills = characters.flatMap((ch) => ch.skills);
+const skills = [...characters, ...entities].flatMap((ch) => ch.skills);
 
 /**
  * 
