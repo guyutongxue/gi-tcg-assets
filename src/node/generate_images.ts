@@ -78,11 +78,13 @@ const replaceNameMap: Record<string, string> = {
     "UI_Gcg_CardFace_Char_Monster_EffigyIce",
 };
 
-const skills = characters.flatMap((ch) => ch.skills);
+const chSkills = characters.flatMap((ch) => ch.skills);
+const etSkills = entities.flatMap((et) => et.skills);
 const allData = [
   ...characters,
   ...actionCards,
-  ...skills,
+  ...chSkills,
+  ...etSkills,
   ...entities,
   ...keywords,
 ];
